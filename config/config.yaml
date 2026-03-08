@@ -65,8 +65,6 @@ platforms:
       name: "财联社热门"
     - id: "wallstreetcn-hot"
       name: "华尔街见闻 最热"
-    - id: "wallstreetcn-news"
-      name: "华尔街见闻-最新"
     - id: "zaobao"
       name: "联合早报"
     - id: "cankaoxiaoxi"
@@ -125,6 +123,12 @@ rss:
       name: "雅虎财经"
       url: "https://finance.yahoo.com/news/rssindex"
 
+    - id: "bestblog"
+      name: "每周Bestblog"
+      url: "https://www.bestblogs.dev/zh/feeds/rss/newsletter"
+      max_age_days: 8
+
+
 
 
 
@@ -155,7 +159,7 @@ rss:
 #    • 适用场景：避免重复信息干扰
 # ===============================================================
 report:
-  mode: "incremental"                     # 可选: daily | current | incremental
+  mode: "daily"                     # 可选: daily | current | incremental
                                       # ⚠️ 开启调度系统后，此值会被当前时间段的 report_mode 覆盖
 
 
@@ -191,20 +195,20 @@ display:
   #   1. 在此列表中
   #   2. 下方 regions 中对应开关为 true
   region_order:
+    - ai_analysis                       # 5️⃣ AI 分析区域
     - new_items                       # 1️⃣ 新增热点区域
     - hotlist                       # 2️⃣ 热榜区域（关键词匹配）
     - rss                       # 3️⃣ RSS 订阅区域
     - standalone                       # 4️⃣ 独立展示区
-    - ai_analysis                       # 5️⃣ AI 分析区域
   regions:
-    new_items: true # 新增热点区域（含热榜新增 + RSS 新增）
+    ai_analysis: true # AI 分析区域
+    new_items: false # 新增热点区域（含热榜新增 + RSS 新增）
     hotlist: true # 热榜区域（关键词匹配的热点新闻）
     rss: true # RSS 订阅区域
     standalone: true # 独立展示区（完整热榜/RSS，不受关键词过滤）
-    ai_analysis: true # AI 分析区域
   standalone:
     platforms: ["zhihu","wallstreetcn-hot"] # 热榜平台 ID 列表（如 ["zhihu", "weibo"]）
-    rss_feeds: []                     # RSS 源 ID 列表（如 ["hacker-news"]）
+    rss_feeds: ["bestblog"] # RSS 源 ID 列表（如 ["hacker-news"]）
     max_items: 20                     # 每个源最多展示条数（0=不限制）
 
 
@@ -251,9 +255,9 @@ notification:
       chat_id: ""                     # Telegram Chat ID
 
     email:
-      from: ""                        # 发件人邮箱地址
-      password: ""                    # 发件人邮箱密码或授权码
-      to: ""                          # 收件人邮箱，多个用逗号分隔
+      from: EMAIL_FROM                        # 发件人邮箱地址
+      password: EMAIL_PASSWORD                    # 发件人邮箱密码或授权码
+      to: EMAIL_TO                          # 收件人邮箱，多个用逗号分隔
       smtp_server: ""                 # SMTP 服务器（可选，留空自动识别）
       smtp_port: ""                   # SMTP 端口（可选，留空自动识别）
 
@@ -428,7 +432,7 @@ ai_analysis:
                                       # GitHub Action 部署默认推送约 20 次（每小时推送一次）， 约 0.1 元/天
                                       # Docker 部署默认推送 48 次(每半小时推送一次)， 约 0.2 元/天
 
-  include_rss: false                # 是否包含 RSS 内容进行分析
+  include_rss: true                # 是否包含 RSS 内容进行分析
   
   include_standalone: true          # 是否将独立展示区数据纳入 AI 分析（只需上方 display 区的 standalone 配置了平台/RSS 即可）
 
