@@ -155,7 +155,7 @@ rss:
 #    • 适用场景：避免重复信息干扰
 # ===============================================================
 report:
-  mode: "current"                     # 可选: daily | current | incremental
+  mode: "incremental"                     # 可选: daily | current | incremental
                                       # ⚠️ 开启调度系统后，此值会被当前时间段的 report_mode 覆盖
 
 
@@ -413,7 +413,7 @@ ai_analysis:
   #   - 推送 incremental（避免重复），AI 分析 current（看当前榜单变化）
   #   - 推送 current（实时热点），AI 分析 daily（全天总结）
   #
-  mode: "follow_report"
+  mode: "daily"
 
   # 分析内容配置
   max_news_for_analysis: 150        # 热榜+RSS 合计参与分析的新闻数量上限（控制成本关键项）
