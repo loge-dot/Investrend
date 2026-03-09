@@ -125,7 +125,7 @@ rss:
 
     - id: "bestblog"
       name: "每周Bestblog"
-      url: "https://www.bestblogs.dev/zh/feeds/rss/newsletter"
+      url: "https://www.bestblogs.dev/zh/feeds/rss?featured=y"
       max_age_days: 8
 
 
